@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <select id="mySelect">
+        <option value="1">第1条数据</option>
+        <option value="2">第2条数据</option>
+        <option value="3">第3条数据</option>
+    </select>
+    <input type="button" id="btn" value="点击跳转">
+    <div id="cont"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            var oBtn = document.querySelector('#btn');
+            var oSelect = document.querySelector('#mySelect');
+            var oCont = document.querySelector('#cont');
+
+            oBtn.addEventListener('click',function(){
+                var a = oSelect.value;
+                // console.log(a)
+                var xhr = new XMLHttpRequest();
+                xhr.open('get','./' + a + '.json');
+                xhr.onreadystatechange = function(){
+                    if(xhr.status === 200 && xhr.readyState === 4){
+                        // console.log(xhr.responseText);
+                        oCont.innerHTML = JSON.parse(xhr.responseText).name;
+                    }
+                }
+                xhr.send();
+            },false);
+        },false);
+    </script>
+</body>
+</html>
